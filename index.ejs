@@ -68,19 +68,24 @@
         </div>
     </nav>
     <div class="container">
-        <form action="get.php" method="post">
+        <form action="get.php" method="post" onsubmit="validateForm()">
             <fieldset style="display: flex;">
 
                 <legend>Basic Detail</legend>
                 <div class="part1">
-                    Name: <input type="text" name="fname" id="fname" placeholder="Enter name" /> <br> <br>
+                    Name: <input type="text" name="fname" id="fname" placeholder="Enter name" oninput="vname()" />
+                    <p id="vname"></p>
+                    <br> <br>
                     Designation: <input type="text" name="designation" id="designation"
-                        placeholder="Enter Designation" />
+                        placeholder="Enter Designation" oninput="valdes()"/>
+                        <p id="vdes"></p>
                     <br>
                     <br>
-                    E-mail: <input type="email" name="mail" id="mail" placeholder="Enter mail" /> <br> <br>
-                    Gender: <input type="radio" name="gender" id="gender1" value="female" checked />Female
-                    <input type="radio" name="gender" id="gender2" value="male" /> Male <br> <br>
+                    E-mail: <input type="email" name="mail" id="mail" placeholder="Enter mail" oninput="vmail()" /> 
+                     <p id="vmail"></p> <br> <br>
+                    Gender: <input type="radio" name="gender" id="gender" value="female" />Female
+                    <input type="radio" name="gender" id="gender" value="male" /> Male 
+                     <p id="vgender"> </p> <br> <br>
                     Relationship Status:
                     <select name="rel" id="rel">
                         <option value="single">Single</option>
@@ -89,11 +94,15 @@
                 </div>
 
 
-                <div class="part2">
-                    Lastname: <input type="text" name="lname" id="lname" placeholder="Enter Surname" /> <br>
-                    Address 1: <input type="text" name="add1" id="add1" placeholder="Enter your permanent address" />
+                <div class="part2" onclick="empmail()">
+                    Lastname: <input type="text" name="lname" id="lname" placeholder="Enter Surname"  onclick="empmail()" /> 
+                     <p id="vlname"></p> <br>
+
+                    Address 1: <input type="text" name="add1" id="add1" placeholder="Enter your permanent address" oninput="vadd1()" />
+                    <p id="vadd1"></p>
                     <br>
-                    Address 2: <input type="text" name="add2" id="add2" placeholder="Enter your current address" /> <br>
+                    Address 2: <input type="text" name="add2" id="add2" placeholder="Enter your current address" oninput="vadd2()" />
+                    <p id="vadd2"></p> <br>
                     State:
                     <select name="state" id="state">
                         <option value="gujarat">Gujarat</option>
@@ -116,39 +125,128 @@
             </fieldset>
 
             <center>
-                <input type="submit" value="submit" />
+                <input type="submit" value="submit" id="submit"  onhover="checkadd2()"   disabled />
             </center>
         </form>
     </div>
 
-    <!-- basic detail fieldset -->
+    <script>
+
+        function validateForm() {
+            console.log(' i am in validate form');
+            let name = document.getElementById('fname').value;
+            console.log(name);
+            let designation = document.getElementById('designation').value;
+            console.log(designation);
+            let mail = document.getElementById('mail').value;
+            console.log(mail);
+            let gender = document.getElementById('gender').value;
+            console.log(gender);
+            let rel = document.getElementById('rel').value;
+
+
+            let surname = document.getElementById('lname').value;
+            let add1 = document.getElementById('add1').value;
+            let add2 = document.getElementById('add2').value;
+            let state = document.getElementById('state').value;
+            let city = document.getElementById('city').value;
+
+            if (name == "" || designation == "" || mail == "" || gender == "" || rel == "" || surname == "" || add1 == "" || add2 == "" || state == "" && city == "") {
+                console.log('a');
+                document.getElementById('submit').disabled = true;
+            }
+            else if (name != "" && designation != "" && gender != "" && rel != "" && surname != "" && add1!= "" && add2 != "" && state != "" && city != ""){
+                document.getElementById('submit').removeAttribute('disabled');
+            }
+        }
+
+
+        function vname() {
+            let name = document.getElementById('fname').value;
+            var pattern = /^[a-zA-Z]*$/;
+
+            var res = name.match(pattern) ? "true" : "false";
+            console.log(res);
+            if (res == 'false') {
+                document.getElementById('vname').innerHTML = "Name should contain only alphabets without space";
+                document.getElementById('vname').style.color = 'red';
+                return false;
+            }
+        }
+
+
+        function valdes(){
+            let name = document.getElementById('fname').value;
+            if(name.length == 0 || name== "" || name == undefined){
+                document.getElementById('vname').innerText = 'Name is mandatory field';
+                document.getElementById('vname').style.color = 'red';
+                return false ;
+            }
+
+
+        }
+
+        function vmail(){
+            let designation = document.getElementById('designation').value;
+            let mail = document.getElementById('mail').value;
+            let mailpattern =  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+            if(designation == "" || designation == 'undefined'){
+                document.getElementById('vdes').innerHTML = 'Designation is a mandatory field';
+                document.getElementById('vdes').style.color = 'red';
+                return false;
+            }
+            if(!mail.match(mailpattern)){
+                document.getElementById('vmail').innerHTML= 'Please enter valid email address';
+                document.getElementById('vmail').style.color='red';
+                return false;
+            }
+            else{
+                document.getElementById('vmail').innerHTML= 'Valid email address';
+                document.getElementById('vmail').style.color='green';
+                return true;
+            }
+        }
+
+
+        function empmail(){
+            let mail = document.getElementById('mail').value;
+            console.log(mail);
+            if(mail == "" || mail == undefined){
+                document.getElementById('vmail').innerHTML = 'E-mail is a mandatory field';
+                document.getElementById('vmail').style.color = 'red';
+            }
+        }
+
+        function vadd1(){
+            let lname = document.getElementById('lname').value;
+            if(lname == "" || lname == undefined){
+                document.getElementById('vlname').innerHTML = 'Surname is a mandatory field';
+                document.getElementById('vlname').style.color='red';
+            }
+        }
+
+        function vadd2(){
+            let address1 = document.getElementById('add1').value;
+            if(address1 == "" || address1 == undefined){
+                document.getElementById('vadd1').innerHTML = 'Please enter your permanent address';
+                document.getElementById('vadd1').style.color = 'red';
+            }
+        }
+
+        function checkadd2(){
+            let address2 = document.getElementById('add2').value;
+            if(address2 == "" || address2 == undefined){
+                document.getElementById('vadd2').innerHTML= 'Please enter your current address';
+                document.getElementById('vadd2').style.color = 'red';
+            }
+        }
+
+
+        
 
 
 
-    <!-- educational detail fieldset -->
-    <!-- <fieldset>
-        <legend>Education Detail</legend>
-        <div class="education">
-            <div class="board">
-                Board: <input type="text" name="board" id="board" />
-            </div>
-            <div class="yrpass">
-                Year of Passing: <input type="text" name="pass" id="pass" />
-            </div>
-            <div class="percent">
-                Percentage: <input type="text" name="percent" id="percent" />
-            </div>
-           
-            
-            
-            <hr>
-        </div>
-        <div class="add_education">
-
-        </div>
-
-
-    </fieldset> -->
+    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
