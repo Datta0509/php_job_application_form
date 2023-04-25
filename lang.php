@@ -31,7 +31,7 @@
                     <a class="nav-link" href="http://localhost/form/exp.ejs">Experience</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="http://localhost/form/exp.ejs">Language<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="http://localhost/form/lang.php">Language<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/form/tech.ejs">Technology</a>
@@ -48,11 +48,56 @@
             
         </div>
     </nav>
-    <form action="get.php" method="post">
+    <?php 
+     $servername = "localhost";
+     $username = "root";
+     $password = "";
+     $database = "job_application_form";
+     
+     // Create connection
+     $conn = new mysqli($servername, $username, $password , $database);
+     
+     // Check connection
+     if ($conn->connect_error) {
+       die("Connection failed: " . $conn->connect_error);
+     }
+     else{
+        echo "<br>"."Connected successfully";
+     }
+     
+
+    $lang = `select option_value from job_application_form.option_master where opt_key = 1`;
+    echo $lang;
+    $result = conn->query($lang);
+
+    echo "<br>"."query executed successfully" . "<br>";
+    // if ($result->num_rows > 0) {
+    // // output data of each row
+    //     while($row = $result->fetch_assoc()) {
+    //      echo "id: " . $row["id"]. " - Name: " . $row["option_value"]. "<br>";
+    // //   echo $result ; 
+    //     }
+    //  } else {
+    //  echo "0 results";
+    // }
+
+    ?>
+    <form action="getlang.php" method="post">
         <fieldset style="display: flex;">
 
             <legend>Languages Known</legend>
-           
+        <div class="container">
+          
+            <label for="exp" ></label>
+            <input type="radio" value="beginner" id="beginner"  name="lang_exp" />Beginner
+            <input type="radio" value="mediator" id="beginner" name="lang_exp" />Mediator
+            <input type="radio" value="expert" id="beginner" name="lang_exp" />Expert
+        </div>
+        
+            
+
+
+
 
         </fieldset>
 

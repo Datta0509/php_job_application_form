@@ -22,10 +22,7 @@
             display: block;
         }
 
-        .education {
-            display: flex;
-            justify-content: space-arround;
-        }
+        
     </style>
 </head>
 
@@ -43,14 +40,14 @@
                     <a class="nav-link" href="http://localhost/form/index.ejs">Basic Details<span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="http://localhost/form/edu.ejs">Education</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/form/exp.ejs">Experience</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost/form/lang.ejs">Language</a>
+                    <a class="nav-link" href="http://localhost/form/lang.php">Language</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/form/tech.ejs">Technology</a>
@@ -60,7 +57,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost/form/pref.ejs">Preference</a>
-                </li>
+                </li> -->
 
 
             </ul>
@@ -68,64 +65,110 @@
         </div>
     </nav>
     <div class="container">
-        <form action="get.php" method="post" onsubmit="validateForm()">
+        <form method="post" onsubmit="return validateForm()">
             <fieldset style="display: flex;">
-
-                <legend>Basic Detail</legend>
-                <div class="part1">
-                    Name: <input type="text" name="fname" id="fname" placeholder="Enter name" oninput="vname()" />
-                    <p id="vname"></p>
-                    <br> <br>
-                    Designation: <input type="text" name="designation" id="designation"
-                        placeholder="Enter Designation" oninput="valdes()"/>
+                <table id="basic">
+                    <legend>Basic Detail</legend>
+                    <div class="part1">
+                        Name: <input type="text" name="fname" id="fname" placeholder="Enter name" />
+                        <p id="vname"></p>
+                        <br> <br>
+                        Designation: <input type="text" name="designation" id="designation"
+                            placeholder="Enter Designation" />
                         <p id="vdes"></p>
-                    <br>
-                    <br>
-                    E-mail: <input type="email" name="mail" id="mail" placeholder="Enter mail" oninput="vmail()" /> 
-                     <p id="vmail"></p> <br> <br>
-                    Gender: <input type="radio" name="gender" id="gender" value="female" />Female
-                    <input type="radio" name="gender" id="gender" value="male" /> Male 
-                     <p id="vgender"> </p> <br> <br>
-                    Relationship Status:
-                    <select name="rel" id="rel">
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                    </select>
-                </div>
+                        <br>
+                        <br>
+                        E-mail: <input type="email" name="mail" id="mail" placeholder="Enter mail" />
+                        <p id="vmail"></p> <br> <br>
+                        Gender: <input type="radio" name="gender" id="gender" value="female" checked />Female
+                        <input type="radio" name="gender" id="gender" value="male" /> Male
+                        <p id="vgender"> </p> <br> <br>
+                        Relationship Status:
+                        <select name="rel" id="rel">
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                        </select>
+                    </div>
 
 
-                <div class="part2" onclick="empmail()">
-                    Lastname: <input type="text" name="lname" id="lname" placeholder="Enter Surname"  onclick="empmail()" /> 
-                     <p id="vlname"></p> <br>
+                    <div class="part2">
+                        Lastname: <input type="text" name="lname" id="lname" placeholder="Enter Surname" />
+                        <p id="vlname"></p> <br>
 
-                    Address 1: <input type="text" name="add1" id="add1" placeholder="Enter your permanent address" oninput="vadd1()" />
-                    <p id="vadd1"></p>
-                    <br>
-                    Address 2: <input type="text" name="add2" id="add2" placeholder="Enter your current address" oninput="vadd2()" />
-                    <p id="vadd2"></p> <br>
-                    State:
-                    <select name="state" id="state">
-                        <option value="gujarat">Gujarat</option>
-                        <option value="maharashtra">Maharashtra</option>
-                        <option value="goa">Goa</option>
-                        <option value="punjab">Punjab</option>
-                    </select>
-                    <br> <br>
-                    city:
-                    <select name="city" id="city">
-                        <option value="bhavnagar">Bhavnagar</option>
-                        <option value="rajkot">Rajkot</option>
-                        <option value="ahmedabad">Ahmedabad</option>
-                        <option value="jamnagar">Jamnagar</option>
-                        <option value="surat">Surat</option>
+                        Address 1: <input type="text" name="add1" id="add1"
+                            placeholder="Enter your permanent address" />
+                        <p id="vadd1"></p>
+                        <br>
+                        Address 2: <input type="text" name="add2" id="add2" placeholder="Enter your current address" />
+                        <p id="vadd2"></p> <br>
+                        State:
+                        <select name="state" id="state">
+                            <option value="gujarat">Gujarat</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="goa">Goa</option>
+                            <option value="punjab">Punjab</option>
+                        </select>
+                        <br> <br>
+                        city:
+                        <select name="city" id="city">
+                            <option value="bhavnagar">Bhavnagar</option>
+                            <option value="rajkot">Rajkot</option>
+                            <option value="ahmedabad">Ahmedabad</option>
+                            <option value="jamnagar">Jamnagar</option>
+                            <option value="surat">Surat</option>
 
-                    </select>
-                </div>
+                        </select>
+                    </div>
+
+                </table>
+
 
             </fieldset>
+            <hr>
+
+            <fieldset>
+
+                <legend>Educational Detail</legend>
+                <table id="education">
+                    <tr>
+                        <td>
+                            <div class="col-4">
+                                Board: <input type="text" id="board" name="board" />
+                            </div>
+
+                        </td>
+                        <td>
+
+                            <div class="col-4">
+                                Passing Year : <input type="number" id="pass" name="pass" />
+                            </div>
+                            
+
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Percentage:  <input type="float" id="percent" name="percent" />    
+                            </div>
+                           
+
+                        </td>
+                    </tr>
+                    
+                </table>
+
+                <hr>
+
+                <div class="add_edu">
+
+                </div>
+                <button onclick="addeducation()">
+                    Add Educational Detail
+                </button>
+            </fieldset>
+
 
             <center>
-                <input type="submit" value="submit" id="submit"  onhover="checkadd2()"   disabled />
+                <button type="submit" value="submit" id="submit">Submit</button>
             </center>
         </form>
     </div>
@@ -137,7 +180,9 @@
             let name = document.getElementById('fname').value;
             console.log(name);
             let designation = document.getElementById('designation').value;
-            console.log(designation);
+            console.log(designation.length);
+
+
             let mail = document.getElementById('mail').value;
             console.log(mail);
             let gender = document.getElementById('gender').value;
@@ -146,18 +191,97 @@
 
 
             let surname = document.getElementById('lname').value;
+            console.log(surname);
             let add1 = document.getElementById('add1').value;
             let add2 = document.getElementById('add2').value;
             let state = document.getElementById('state').value;
             let city = document.getElementById('city').value;
 
-            if (name == "" || designation == "" || mail == "" || gender == "" || rel == "" || surname == "" || add1 == "" || add2 == "" || state == "" && city == "") {
-                console.log('a');
-                document.getElementById('submit').disabled = true;
+            if (name == '') {
+                document.getElementById('vname').innerHTML = 'Name is a mandatory field';
+                document.getElementById('vname').style.color = 'red';
+                return false;
             }
-            else if (name != "" && designation != "" && gender != "" && rel != "" && surname != "" && add1!= "" && add2 != "" && state != "" && city != ""){
-                document.getElementById('submit').removeAttribute('disabled');
+            else if (!name.match(/^[a-zA-Z]*$/)) {
+                document.getElementById('vname').innerHTML = 'Name should contain only alphabets without space';
+                document.getElementById('vname').style.color = 'red';
+                return false;
             }
+            else {
+                document.getElementById('vname').innerHTML = '';
+            }
+
+
+            let mailpattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+            if (designation == "") {
+                document.getElementById('vdes').innerHTML = 'Designation is a mandatory field';
+                document.getElementById('vdes').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vdes').innerHTML = '';
+                // return false;
+            }
+
+            if (mail == "" || mail == undefined) {
+                document.getElementById('vmail').innerHTML = 'E-mail is a mandatory field';
+                document.getElementById('vmail').style.color = 'red';
+                return false;
+            }
+            else if (!mail.match(mailpattern)) {
+                document.getElementById('vmail').innerHTML = 'Please enter valid email address';
+                document.getElementById('vmail').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vmail').innerHTML = '';
+                document.getElementById('vmail').style.color = 'green';
+                // return true;
+            }
+
+
+
+            if (surname == "") {
+                document.getElementById('vlname').innerHTML = 'Surname is a mandatory field';
+                document.getElementById('vlname').style.color = 'red';
+                return false;
+            }
+            else if (!surname.match(/^[a-zA-Z]*$/)) {
+                document.getElementById('vlname').innerHTML = "Surname should contain only alphabets without space";
+                document.getElementById('vlname').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vlname').innerHTML = "";
+                // return true;
+            }
+
+            if (add1 == "") {
+                document.getElementById('vadd1').innerHTML = 'Please enter your permanent address';
+                document.getElementById('vadd1').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vadd1').innerHTML = '';
+            }
+
+            if (add2 == "") {
+                document.getElementById('vadd2').innerHTML = 'Please enter your current address';
+                document.getElementById('vadd2').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vadd2').innerHTML = '';
+            }
+
+            // vname();
+            // valdes();
+            // vmail();
+            // empmail();
+            // vadd1();
+            // vadd2();
+            // checkadd2();
+            return true;
         }
 
 
@@ -175,76 +299,75 @@
         }
 
 
-        function valdes(){
+        function valdes() {
             let name = document.getElementById('fname').value;
-            if(name.length == 0 || name== "" || name == undefined){
+            if (name.length == 0 || name == "" || name == undefined) {
                 document.getElementById('vname').innerText = 'Name is mandatory field';
                 document.getElementById('vname').style.color = 'red';
-                return false ;
+                return false;
             }
 
 
         }
 
-        function vmail(){
+        function vmail() {
             let designation = document.getElementById('designation').value;
             let mail = document.getElementById('mail').value;
-            let mailpattern =  "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
-            if(designation == "" || designation == 'undefined'){
+            let mailpattern = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+            if (designation == "" || designation == 'undefined') {
                 document.getElementById('vdes').innerHTML = 'Designation is a mandatory field';
                 document.getElementById('vdes').style.color = 'red';
                 return false;
             }
-            if(!mail.match(mailpattern)){
-                document.getElementById('vmail').innerHTML= 'Please enter valid email address';
-                document.getElementById('vmail').style.color='red';
+            if (!mail.match(mailpattern)) {
+                document.getElementById('vmail').innerHTML = 'Please enter valid email address';
+                document.getElementById('vmail').style.color = 'red';
                 return false;
             }
-            else{
-                document.getElementById('vmail').innerHTML= 'Valid email address';
-                document.getElementById('vmail').style.color='green';
+            else {
+                document.getElementById('vmail').innerHTML = 'Valid email address';
+                document.getElementById('vmail').style.color = 'green';
                 return true;
             }
         }
 
 
-        function empmail(){
+        function empmail() {
             let mail = document.getElementById('mail').value;
             console.log(mail);
-            if(mail == "" || mail == undefined){
+            if (mail == "" || mail == undefined) {
                 document.getElementById('vmail').innerHTML = 'E-mail is a mandatory field';
                 document.getElementById('vmail').style.color = 'red';
+                return false;
             }
         }
 
-        function vadd1(){
+        function vadd1() {
             let lname = document.getElementById('lname').value;
-            if(lname == "" || lname == undefined){
+            if (lname == "" || lname == undefined) {
                 document.getElementById('vlname').innerHTML = 'Surname is a mandatory field';
-                document.getElementById('vlname').style.color='red';
+                document.getElementById('vlname').style.color = 'red';
+                return false;
             }
         }
 
-        function vadd2(){
+        function vadd2() {
             let address1 = document.getElementById('add1').value;
-            if(address1 == "" || address1 == undefined){
+            if (address1 == "" || address1 == undefined) {
                 document.getElementById('vadd1').innerHTML = 'Please enter your permanent address';
                 document.getElementById('vadd1').style.color = 'red';
+                return false;
             }
         }
 
-        function checkadd2(){
+        function checkadd2() {
             let address2 = document.getElementById('add2').value;
-            if(address2 == "" || address2 == undefined){
-                document.getElementById('vadd2').innerHTML= 'Please enter your current address';
+            if (address2 == "" || address2 == undefined) {
+                document.getElementById('vadd2').innerHTML = 'Please enter your current address';
                 document.getElementById('vadd2').style.color = 'red';
+                return false;
             }
         }
-
-
-        
-
-
 
     </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -32,7 +32,7 @@ if ($conn->connect_error) {
 }
 echo "<br>"."Connected successfully";
 
-$sql = "select * from job_application_form.state_master";
+$sql = "select * from job_application_form.option_master where opt_key=2";
 echo "<br>".$sql;
 $result = $conn->query($sql);
 echo "from echo in array result " ."<br>";
@@ -41,12 +41,15 @@ echo "<br>"."query executed successfully" . "<br>";
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-      echo "id: " . $row["id"]. " - Name: " . $row["state"]. "<br>";
+      echo "id: " . $row["id"]. " - Name: " . $row["option_value"]. "<br>";
     //   echo $result ; 
     }
   } else {
     echo "0 results";
   }
+
+  
+
 
   $ins = "insert into job_application_form.basic_details(name,
                                                         surname,
@@ -73,7 +76,7 @@ if ($result->num_rows > 0) {
   echo $ins;
 
   $inserting = mysqli_query($conn,$ins);
-  echo $inserting. "executed successfully";
+  echo $inserting. "executed successfully in basic details";
 
 
 
