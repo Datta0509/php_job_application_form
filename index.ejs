@@ -21,8 +21,6 @@
         .part2 input {
             display: block;
         }
-
-        
     </style>
 </head>
 
@@ -65,7 +63,7 @@
         </div>
     </nav>
     <div class="container">
-        <form method="post" onsubmit="return validateForm()">
+        <form method="post" action="get.php" onsubmit="return validateForm()">
             <fieldset style="display: flex;">
                 <table id="basic">
                     <legend>Basic Detail</legend>
@@ -129,44 +127,102 @@
             <fieldset>
 
                 <legend>Educational Detail</legend>
-                <table id="education">
+                <table id="education1">
                     <tr>
                         <td>
-                            <div class="col-4">
+                            <div class="col-3">
                                 Board: <input type="text" id="board" name="board" />
                             </div>
-
+                            <span id="vboard"></span>
                         </td>
                         <td>
-
-                            <div class="col-4">
+                            <div class="col-3">
                                 Passing Year : <input type="number" id="pass" name="pass" />
                             </div>
-                            
+                            <span id="vpass"></span>
+                        </td>
+                        <td>
+                            <div class="col-3">
+                                Percentage: <input type="float" id="percent" name="percent" />
+                            </div>
+                            <span id="vpercent">
+
+                            </span>
 
                         </td>
                         <td>
-                            <div class="col-4">
-                                Percentage:  <input type="float" id="percent" name="percent" />    
+                            <div class="col-3">
+                                <button type="button" onclick="remove_edu(this)" id="removed_edu">
+                                    -
+                                </button>
                             </div>
-                           
-
                         </td>
+
+
                     </tr>
-                    
                 </table>
-
-                <hr>
-
-                <div class="add_edu">
+                <div id="add_edu">
 
                 </div>
-                <button onclick="addeducation()">
+
+
+
+
+
+
+                <button type="button" onclick="addeducation()" id="added_edu">
                     Add Educational Detail
                 </button>
+
             </fieldset>
 
+            <hr>
+            <fieldset>
+                <legend>Work Experience</legend>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="col-2">
+                                Company Name: <input type="text" name="company" id="company"
+                                    placeholder="Enter company name" />
+                                <span id="vcompany">
 
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                Designation: <input type="text" name="des" id="des" placeholder="Enter designation " />
+                                <span id="vdes2"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                From: <input type="date" name="from_date" id="from_date" />
+                                <span id="vfrom">
+
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                To: <input type="date" name="to_date" id="to_date" />
+                                <span id="vto"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                <button type="button" onclick="remove_edu(this)"> - </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div id="add_exp">
+
+                </div>
+                <button type="button" onclick="add_experience()" id="added_exp">Add Experience Detail</button>
+            </fieldset>
             <center>
                 <button type="submit" value="submit" id="submit">Submit</button>
             </center>
@@ -182,13 +238,16 @@
             let designation = document.getElementById('designation').value;
             console.log(designation.length);
 
-
+            const d = new Date();
+            let year = d.getFullYear();
             let mail = document.getElementById('mail').value;
             console.log(mail);
             let gender = document.getElementById('gender').value;
             console.log(gender);
             let rel = document.getElementById('rel').value;
-
+            let board = document.getElementById('board').value;
+            let pass = document.getElementById('pass');
+            let percent = document.getElementById('percent').value;
 
             let surname = document.getElementById('lname').value;
             console.log(surname);
@@ -273,6 +332,96 @@
             else {
                 document.getElementById('vadd2').innerHTML = '';
             }
+
+
+            if (board == "") {
+                document.getElementById('vboard').innerHTML = `Board is a mandatory field`;
+                document.getElementById('vboard').style.color = 'red';
+                return false;
+            }
+            else if (!board.match(/^[a-zA-Z]*$/)) {
+                document.getElementById('vboard').innerHTML = `Please enter valid Board  name`;
+                document.getElementById('vboard').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vboard').innerHTML = '';
+            }
+
+            if (pass == "") {
+                document.getElementById('vpass').innerHTML = `Passing year is a mandatory field`;
+                document.getElementById('vpass').style.color = 'red';
+                return false;
+            }
+            else if (pass.length != 4) {
+                document.getElementById('vpass').innerHTML = `Year should be in YYYY format`;
+                document.getElementById('vpass').style.color = 'red';
+                return false;
+            }
+            else if (pass > year) {
+                document.getElementById('vpass').innerHTML = `Please enter valid passing year`;
+                document.getElementById('vpass').style.color = `red`;
+                return false;
+            }
+            else {
+                document.getElementById('vpass') = "";
+            }
+
+            if (percent == "") {
+                document.getElementById('vpercent').innerHTML = "Percentage is a mandatory field";
+                document.getElementById('vpercent').style.color = 'red';
+                return false;
+            }
+            else if (percent > 100) {
+                document.getElementById('vpercent').innerHTML = 'Please enter valid percentage';
+                document.getElementById('vpercent').style.color = `red`;
+                return false;
+            }
+            else {
+                document.getElementById('vpercent').innerHTML = "";
+            }
+
+
+            let cname = document.getElementById('company').value;
+            let emp_des = document.getElementById('des').value;
+            let from = document.getElementById('from_date').value;
+            let to = document.getElementById('to_date').value;
+            
+
+            let day = d.getDate();
+            let month = d.getMonth() + 1;
+            
+            // This arrangement can be altered based on how we want the date's format to appear.
+            let currentDate = `${day}-${month}-${year}`;
+            console.log(currentDate);
+
+            if (cname == "") {
+                document.getElementById('vcompany').innerHTML = "Company name is a mandatory field";
+                document.getElementById('vcompany').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vcompany').innerHTML = '';
+            }
+
+            if (emp_des == "") {
+                document.getElementById('vdes2').innerHTML = 'Employee designation is a mandatory field';
+                document.getElementById('vdes2').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vdes2').innerHTML = "";
+            }
+
+            if (from == "") {
+                document.getElementById('vfrom').innerHTML = 'Starting date of employeement is mandatory';
+                document.getElementById('vfrom').style.color = 'red';
+                return false;
+            }
+            else {
+                document.getElementById('vfrom').innerHTML = "";
+            }
+
 
             // vname();
             // valdes();
@@ -367,6 +516,232 @@
                 document.getElementById('vadd2').style.color = 'red';
                 return false;
             }
+        }
+
+        let click = 1;
+        let text = "";
+        let clicked = 1;
+        let text2 = "";
+
+        function add_experience() {
+            clicked += 1;
+
+            if (clicked == 2) {
+                text2 += `
+            <table>
+                    <tr>
+                        <td>
+                            <div class="col-2">
+                                Company Name: <input type="text" name="company" id="company" placeholder="Enter company name"  />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                Designation: <input type="text" name="des" id="des" placeholder="Enter designation " />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                From: <input type="date" name="from_date" id="from_date"  />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                To: <input type="date" name="to_date" id="to_date" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                <button type="button" onclick="remove_edu(this)" > - </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            `;
+            }
+            else if (clicked == 3) {
+                text2 += `
+            <table>
+                    <tr>
+                        <td>
+                            <div class="col-2">
+                                Company Name: <input type="text" name="company" id="company" placeholder="Enter company name"  />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                Designation: <input type="text" name="des" id="des" placeholder="Enter designation " />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                From: <input type="date" name="from_date" id="from_date"  />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                To: <input type="date" name="to_date" id="to_date" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                <button type="button" onclick="remove_edu(this)" > - </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            `;
+            }
+
+            else if (clicked == 4) {
+                text2 += `
+            <table>
+                    <tr>
+                        <td>
+                            <div class="col-2">
+                                Company Name: <input type="text" name="company" id="company" placeholder="Enter company name"  />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                Designation: <input type="text" name="des" id="des" placeholder="Enter designation " />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                From: <input type="date" name="from_date" id="from_date"  />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                To: <input type="date" name="to_date" id="to_date" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                <button type="button" onclick="remove_edu(this)" > - </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            `;
+            }
+            else if (clicked > 4) {
+                document.getElementById('added_exp').style.visibility = 'hidden';
+            }
+
+            document.getElementById('add_exp').innerHTML = text2;
+        }
+
+        function addeducation() {
+            click += 1;
+            if (click == 2) {
+                text += `
+                <table id="education2">
+                    <tr>
+                        <td>
+                            <div class="col-4">
+                                Board: <input type="text" id="board" name="board" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Passing Year : <input type="number" id="pass" name="pass" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Percentage: <input type="float" id="percent" name="percent" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-3">
+                                <button  type="button" onclick="remove_edu(this)" id="removed_edu" >
+                                    -
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                `;
+
+            }
+            else if (click == 3) {
+                text += `
+                <table id="education3" >
+                    <tr>
+                        <td>
+                            <div class="col-4">
+                                Board: <input type="text" id="board" name="board" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Passing Year : <input type="number" id="pass" name="pass" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Percentage: <input type="float" id="percent" name="percent" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-3">
+                                <button  type="button" onclick="remove_edu(this)" id="removed_edu" >
+                                    -
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </table>
+                `;
+
+            }
+            else if (click == 4) {
+                text += `
+                <table id="education4" >
+                    <tr>
+                        <td>
+                            <div class="col-4">
+                                Board: <input type="text" id="board" name="board" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Passing Year : <input type="number" id="pass" name="pass" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-4">
+                                Percentage: <input type="float" id="percent" name="percent" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-3">
+                                <button  type="button" onclick="remove_edu(this)" id="removed_edu" >
+                                    -
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </table>
+                `;
+
+            }
+
+            else if (click > 4) {
+                document.getElementById('added_edu').style.visibility = 'hidden';
+            }
+
+            document.getElementById('add_edu').innerHTML = text;
+
+        }
+
+        function remove_edu(obj) {
+
+
+            let obj2 = obj.parentNode.parentNode.parentNode;
+            obj2.remove();
         }
 
     </script>

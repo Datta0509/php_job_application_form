@@ -14,7 +14,13 @@ $city = $_POST['city'];
 $mail = $_POST['mail'];
 $gender = $_POST['gender'];
 $rel = $_POST['rel'];
+$board = $_POST['board'];
+$pass = $_POST['pass'];
+$percent = $_POST['percent'];
 
+echo '<br>'. 'Board is :' ,$board;
+echo '<br>'. "passing year is: ", $pass;
+echo '<br> '."Percentage is: ", $percent , "<br>" ; 
 
 echo "name is:"."$name" , "<br>" , "Designation is: "."$designation" , "<br>" , "Mail is: "."$mail" , "<br>" , "Gender is: "."$gender" , "<br> " , "Relationship status is: ".$rel ; 
 
@@ -71,7 +77,8 @@ if ($result->num_rows > 0) {
                                                         '$gender' ,
                                                         '$rel',
                                                         '$state',
-                                                        '$city')";
+                                                        '$city'
+                                                        )";
 
   echo $ins;
 
